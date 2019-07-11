@@ -1,0 +1,12 @@
+.book-img {
+    /* Width of thumbnail images from API is 128px */
+    min-width:128px;
+    /* Height of thumbnail images from API varies but usually around 200px */
+    max-height:200px;
+    margin:10px;
+    background:skyblue;
+}
+
+.book-details {
+    display: flex;
+}
