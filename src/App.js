@@ -4,6 +4,7 @@ import SearchForm from './SearchForm/SearchForm.js';
 import FilterOptions from './FilterOptions/FilterOptions.js';
 import BookList from './BookList/BookList.js';
 import './App.css';
+import { arrayExpression } from '@babel/types';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,9 +58,19 @@ class App extends React.Component {
         books.volumeInfo.printType === 'MAGAZINE'
       )
     } else {
-      throw new Error('There was a problem with the Print Type filster. Please try again later.')}
+      throw new Error('There was a problem with the Print Type filter. Please try again later.')}
   }
 
+  combineFilters = (printFilterArray, bookFilterArray) => {
+    const filteredBooks = [];
+    printFilterArray.forEach((e1)=>bookFilterArray.forEach((e2)=>
+        {if(e1 === e2){
+          filteredBooks.push(e1)
+        }}
+      )
+    )
+    return filteredBooks;
+  }
 
   handleSubmit = (books) => {
     this.setState({
@@ -68,8 +79,15 @@ class App extends React.Component {
   }
 
   render() {
+    const printFilterArray = this.handlePrintFilter(
+      this.state.books, this.state.printType);
+    const bookFilterArray = this.handleBookFilter(
+      this.state.books, this.state.bookType);
+    const filteredBooks = printFilterArray
+      ? this.combineFilters(printFilterArray, bookFilterArray)
+      : this.state.books;
     const books = this.state.books
-      ? <BookList books={this.state.books} />
+      ? <BookList books={filteredBooks} />
       : <div className="book-placeholder">Search for a book in the box above</div>
     const appError = this.state.error
       ? <div className="error-message">Error: {this.state.error}</div>

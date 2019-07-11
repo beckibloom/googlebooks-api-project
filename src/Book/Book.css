@@ -1,7 +1,9 @@
 .book-img {
     /* Width of thumbnail images from API is 128px */
     min-width:128px;
+    max-width:135px;
     /* Height of thumbnail images from API varies but usually around 200px */
+    min-height:150px;
     max-height:200px;
     margin:10px;
     background:skyblue;

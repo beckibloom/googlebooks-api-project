@@ -12,20 +12,20 @@ class Book extends React.Component {
         } else { return ('Not for sale') }
     }
 
-    getImage = () => {
-        const book = this.props.bookObj;
-        if (book.volumeInfo.imageLinks == true) {
-            return (
-                <img src={book.volumeInfo.imageLinks.smallThumbnail}
-                alt='Cover art'
-                className="book-img" />
-            )
-        } else {
-            return (
-                <div className="book-img">No cover image available</div>
-            )
-        }
-    }
+    // getImage = () => {
+    //     const book = this.props.bookObj;
+    //     if (book.volumeInfo.imageLinks == true) {
+    //         return (
+    //             <img src={book.volumeInfo.imageLinks.smallThumbnail}
+    //             alt='Cover art'
+    //             className="book-img" />
+    //         )
+    //     } else {
+    //         return (
+    //             <div className="book-img">No cover image available</div>
+    //         )
+    //     }
+    // }
     
     // Note that AUTHOR prop is an array of author names
     render() {
@@ -40,7 +40,11 @@ class Book extends React.Component {
         const description = book.volumeInfo.description
             ? book.volumeInfo.description
             : 'Description not found';
-        const image = this.getImage();
+        const image = book.volumeInfo.imageLinks
+            ? <img src={book.volumeInfo.imageLinks.smallThumbnail}
+                    alt='Cover art'
+                    className="book-img" />
+            : <div className="book-img">No cover image available</div>;
         return(
             <li>
                 <h2>{title}</h2>
